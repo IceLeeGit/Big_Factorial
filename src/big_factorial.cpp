@@ -1,5 +1,8 @@
 #include <iostream>
 #include "polynomial_operation.cc"
+#include <stdlib.h>
+#include <stdio.h>
+#include <time.h>
 
 
 using namespace std;
@@ -7,7 +10,7 @@ using namespace std;
 Poly format_number(int num,int base);
 Poly factorial_cal(int num);
 
-int main()
+int main(int argc,char** argv)
 {
     int len=5;
     int ind[5]={1,2,3,1,3}, coef[5]={11,22,33,11,33};
@@ -22,24 +25,17 @@ int main()
     poly2.print();
     poly2.formatpoly();
 
-
-    int ind3[1]={0}, coef3[1]={2};
-    Poly poly4(ind3,coef3,1,10);
-    poly4.print();
-    int ind4[2]={0,1}, coef4[2]={2,1};
-    Poly poly5(ind4,coef4,2,10);
-    poly5.print();
-    Poly poly6;
-    poly6 = poly4*poly5;
-    poly6.print();
-    poly6.print_number();
-
-    cout<<"FOrmat 100"<<endl;
-    poly6=format_number(4,10);
-    poly6.print();
-    poly6.print_number();
-
-    factorial_cal(20170).print_number();
+    if(argc>1)
+    {
+        int num = atoi(argv[1]);
+        clock_t time_start,time_end;
+        time_start = clock();
+        factorial_cal(num).print_number();
+        time_end = clock();
+        cout<<"Run times are "<<double(time_end-time_start)/CLOCKS_PER_SEC <<"s."<<endl;
+    }
+    else
+        cout<<"Not found the integer."<<endl;
 
     return 0;
 }
